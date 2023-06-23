@@ -1,0 +1,9 @@
+<div style="padding: 10px">
+  <button class="btn btn-primary" (click)="togglePassword()">Display Details</button>
+  <p>Secret password</p>
+  <p>{{displayedPassword}}</p>
+  <p *ngFor="let record of clickArray; let i = index"
+     [ngClass]="{later: i >= 4}"
+     [ngStyle]="{color: i >= 4 ? 'white' : 'black'}"
+  >{{i+1}} : {{record}}</p>
+</div>

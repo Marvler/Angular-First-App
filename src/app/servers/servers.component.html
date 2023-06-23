@@ -1,1 +1,17 @@
-<p>servers works!</p>
+<br>
+<!--<input-->
+<!--  type="text"-->
+<!--  class="form-control"-->
+<!--  (input)="onUpdateServerName($event)">-->
+<input
+  type="text"
+  class="form-control"
+  [(ngModel)]="serverName">
+<button class="btn btn-primary"
+        [disabled]="!allowNewServer"
+        (click)="onCreateServer()">Add server
+</button>
+<p [ngStyle]="{backgroundColor:getColor()}">{{serverName}}</p>
+<p>{{serverCreationStatus}}</p>
+
+<app-server *ngFor="let server of servers"></app-server>
