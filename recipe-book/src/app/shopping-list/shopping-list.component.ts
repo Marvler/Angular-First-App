@@ -15,4 +15,17 @@ export class ShoppingListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  addIngredient(ingredient:Ingredient){
+    this.ingredients.push(ingredient)
+  }
+
+  onDelete(ingredient: Ingredient){
+    this.ingredients.forEach(ing => {
+      if(ing.name.toLowerCase() === ingredient.name.toLowerCase()){
+        const index = this.ingredients.indexOf(ing);
+        this.ingredients.splice(index,1);
+      }
+    })
+  }
 }
