@@ -5,7 +5,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Ingredient } from '../../shared/ingredient.model';
+import {ShoppingListService} from "../shopping-list.service";
 
 @Component({
   selector: 'app-shopping-edit',
@@ -13,21 +13,18 @@ import { Ingredient } from '../../shared/ingredient.model';
   styleUrls: ['./shopping-edit.component.scss'],
 })
 export class ShoppingEditComponent {
-  @Output() newIngredient = new EventEmitter<Ingredient>();
-  @Output() deletedIngredient = new EventEmitter<Ingredient>();
-
   @ViewChild('nameInput') name: ElementRef;
   @ViewChild('amountInput') amount: ElementRef;
 
-  addIngredient(nameInput: HTMLInputElement, amountInput: HTMLInputElement) {
-    // this.newIngredient.emit({
-    //   name: nameInput.value,
-    //   amount: amountInput.valueAsNumber,
-    // });
-    this.newIngredient.emit({
-      name: this.name.nativeElement.value,
-      amount: this.amount.nativeElement.value,
-    });
+  constructor(private slService: ShoppingListService) {
+  }
+
+  addIngredient() {
+    console.log("hello")
+    this.slService.addIngredient({
+      name:this.name.nativeElement.value,
+      amount: this.amount.nativeElement.value
+    })
   }
 
   onDelete(nameInput: HTMLInputElement, amountInput: HTMLInputElement) {
@@ -35,10 +32,6 @@ export class ShoppingEditComponent {
     //   name: nameInput.value,
     //   amount: amountInput.valueAsNumber,
     // });
-    this.deletedIngredient.emit({
-      name: this.name.nativeElement.value,
-      amount: this.amount.nativeElement.value,
-    });
   }
 
   onClear() {

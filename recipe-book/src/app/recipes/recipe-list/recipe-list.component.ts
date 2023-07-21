@@ -1,5 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Recipe } from '../recipe.model';
+import { RecipesService } from '../recipes.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -7,26 +9,17 @@ import { Recipe } from '../recipe.model';
   styleUrls: ['./recipe-list.component.scss'],
 })
 export class RecipeListComponent implements OnInit {
-  @Output() recipeWasSelected = new EventEmitter<Recipe>();
+  public recipes: Recipe[] = [];
 
-  public recipes: Recipe[] = [
-    new Recipe(
-      'Test Recipe',
-      'Simple test',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272'
-    ),
-    new Recipe(
-      'Second Recipe',
-      'Simplest test',
-      'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&webp=true&resize=300,272'
-    ),
-  ];
+  constructor(private recipesService: RecipesService,
+              private router: Router,
+              private route: ActivatedRoute) {}
 
-  constructor() {}
+  ngOnInit() {
+    this.recipes = this.recipesService.getRecipes();
+  }
 
-  ngOnInit() {}
-
-  onRecipeClicked(recipe:Recipe){
-    this.recipeWasSelected.emit(recipe);
+  onNewRecipe() {
+    this.router.navigate(['new'], {relativeTo: this.route})
   }
 }
